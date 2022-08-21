@@ -1,0 +1,67 @@
+# general settings
+name: test_VapSR_betaX4
+model_type: SRModel
+scale: 4
+num_gpu: 1
+manual_seed: 0
+
+# dataset and data loader settings
+datasets:
+  val:
+    name: Set5
+    type: PairedImageDataset
+    dataroot_gt: /opt/data/private/BasicSR/datasets/Set5/HR
+    dataroot_lq: /opt/data/private/BasicSR/datasets/Set5/LR_bicubic/X4
+    io_backend:
+      type: disk
+  val_1:
+    name: Set14
+    type: PairedImageDataset
+    dataroot_gt: /opt/data/private/BasicSR/datasets/Set14/HR
+    dataroot_lq: /opt/data/private/BasicSR/datasets/Set14/LR_bicubic/X4
+    io_backend:
+      type: disk
+  val_2:
+    name: B100
+    type: PairedImageDataset
+    dataroot_gt: /opt/data/private/BasicSR/datasets/BSDS100/HR
+    dataroot_lq: /opt/data/private/BasicSR/datasets/BSDS100/LR_bicubic/X4
+    io_backend:
+      type: disk
+  val_3:
+    name: Urban100
+    type: PairedImageDataset
+    dataroot_gt: /opt/data/private/BasicSR/datasets/urban100/HR
+    dataroot_lq: /opt/data/private/BasicSR/datasets/urban100/LR_bicubic/X4
+    io_backend:
+      type: disk
+
+# network structures
+network_g:
+  type: vapsr_beta
+  num_in_ch: 3
+  num_feat: 48
+  d_atten: 64
+  num_block: 21
+  num_out_ch: 3
+  scale: 4
+
+# path
+path:
+  pretrain_network_g: VapSR_X4.pth
+  strict_load_g: true
+  resume_state: ~
+
+# validation settings
+val:
+  save_img: false
+
+  metrics:
+    psnr: # metric name, can be arbitrary
+      type: calculate_psnr
+      crop_border: 4
+      test_y_channel: true
+    ssim:
+      type: calculate_ssim
+      crop_border: 4
+      test_y_channel: true

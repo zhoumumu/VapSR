@@ -1,0 +1,101 @@
+# general settings
+name: VapSR_betaX2
+model_type: SRModel
+scale: 2
+num_gpu: 2
+manual_seed: 0
+
+# dataset and data loader settings
+datasets:
+  train:
+    name: DF2K
+    type: PairedImageDataset
+    dataroot_gt: ../SR_datasets/DF2K/DF2K_HR_sub.lmdb
+    dataroot_lq: ../SR_datasets/DF2K/DF2K_train_LR_bicubic_X2_sub.lmdb
+    io_backend:
+      type: lmdb
+
+    gt_size: 96
+    use_hflip: true
+    use_rot: true
+
+    # data loader
+    use_shuffle: true
+    num_worker_per_gpu: 4
+    batch_size_per_gpu: 32
+    dataset_enlarge_ratio: 100
+    prefetch_mode: ~
+
+  val:
+    name: DIV2K_val
+    type: PairedImageDataset
+    dataroot_gt: ../SR_datasets/DIV2K/DIV2K_valid_HR/
+    dataroot_lq: ../SR_datasets/DIV2K/DIV2K_valid_LR_bicubic/X2/
+    io_backend:
+      type: disk
+
+
+# network structures
+network_g:
+  type: vapsr_beta
+  num_in_ch: 3
+  num_feat: 48
+  d_atten: 64
+  num_block: 20
+  num_out_ch: 3
+  scale: 2
+
+# path
+path:
+  pretrain_network_g: ~
+  strict_load_g: true
+  resume_state: ~
+
+# training settings
+train:
+  ema_decay: 0.999
+  optim_g:
+    type: Adam
+    lr: !!float 1e-3
+    weight_decay: 0
+    betas: [0.9, 0.99]
+
+  scheduler:
+    type: MultiStepLR
+    milestones: [70000, 1000000]
+    gamma: 0.7
+
+  total_iter: 1000000
+  warmup_iter: -1  # no warm up
+
+  # losses
+  pixel_opt:
+    type: L1Loss
+    loss_weight: 1.0
+    reduction: mean
+
+# validation settings
+val:
+  val_freq: !!float 5e3
+  save_img: false
+
+  metrics:
+    psnr: # metric name, can be arbitrary
+      type: calculate_psnr
+      crop_border: 4
+      test_y_channel: false
+
+# logging settings
+logger:
+  print_freq: 100
+  save_checkpoint_freq: !!float 5e3
+  use_tb_logger: true
+  wandb:
+    project: ~
+    resume_id: ~
+    entity: ~
+
+# dist training settings
+dist_params:
+  backend: nccl
+  port: 29502
