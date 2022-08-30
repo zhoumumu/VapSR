@@ -68,15 +68,17 @@ def make_layer(block, n_layers, *kwargs):
 @ARCH_REGISTRY.register()
 class vapsr_beta(nn.Module):
 
-    def __init__(self, num_in_ch, num_out_ch, scale=4, num_feat=64, num_block=23, d_atten=64):
+    def __init__(self, num_in_ch, num_out_ch, scale=4, num_feat=64, num_block=23, d_atten=64, conv_groups=1):
         super(vapsr_beta, self).__init__()
         self.conv_first = nn.Conv2d(num_in_ch, num_feat, 3, 1, 1)
         self.body = make_layer(SpatialAttention, num_block, num_feat, d_atten)
-        #self.conv_body = nn.Conv2d(num_feat, num_feat, 3, 1, 1, groups=2) # for VapSR-S
-        self.conv_body = nn.Conv2d(num_feat, num_feat, 3, 1, 1)
+        self.conv_body = nn.Conv2d(num_feat, num_feat, 3, 1, 1, conv_groups) #conv_groups=2 for VapSR-S
 
-        # # upsample
-        self.upsampler = pixelshuffle_block_2(num_feat, num_out_ch, upscale_factor=scale)
+        # upsample
+        if scale == 4:
+            self.upsampler = pixelshuffle_block(num_feat, num_out_ch, upscale_factor=scale)
+        else:
+            self.upsampler = pixelshuffle_block_2(num_feat, num_out_ch, upscale_factor=scale)
 
 
     def forward(self, feat):
@@ -89,4 +91,3 @@ class vapsr_beta(nn.Module):
         # upsample
         out = self.upsampler(feat)
         return out
-

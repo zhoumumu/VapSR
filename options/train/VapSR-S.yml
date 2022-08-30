@@ -43,6 +43,7 @@ network_g:
   d_atten: 64
   num_block: 11
   num_out_ch: 3
+  conv_groups: 2
   scale: 4
 
 # path
