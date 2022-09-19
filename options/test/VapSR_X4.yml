@@ -1,5 +1,5 @@
 # general settings
-name: test_VapSR_betaX4
+name: test_VapSR_X4
 model_type: SRModel
 scale: 4
 num_gpu: 1
@@ -10,35 +10,35 @@ datasets:
   val:
     name: Set5
     type: PairedImageDataset
-    dataroot_gt: /opt/data/private/BasicSR/datasets/Set5/HR
-    dataroot_lq: /opt/data/private/BasicSR/datasets/Set5/LR_bicubic/X4
+    dataroot_gt: ../BasicSR/datasets/Set5/HR
+    dataroot_lq: ../BasicSR/datasets/Set5/LR_bicubic/X4
     io_backend:
       type: disk
   val_1:
     name: Set14
     type: PairedImageDataset
-    dataroot_gt: /opt/data/private/BasicSR/datasets/Set14/HR
-    dataroot_lq: /opt/data/private/BasicSR/datasets/Set14/LR_bicubic/X4
+    dataroot_gt: ../BasicSR/datasets/Set14/HR
+    dataroot_lq: ../BasicSR/datasets/Set14/LR_bicubic/X4
     io_backend:
       type: disk
   val_2:
     name: B100
     type: PairedImageDataset
-    dataroot_gt: /opt/data/private/BasicSR/datasets/BSDS100/HR
-    dataroot_lq: /opt/data/private/BasicSR/datasets/BSDS100/LR_bicubic/X4
+    dataroot_gt: ../BasicSR/datasets/BSDS100/HR
+    dataroot_lq: ../BasicSR/datasets/BSDS100/LR_bicubic/X4
     io_backend:
       type: disk
   val_3:
     name: Urban100
     type: PairedImageDataset
-    dataroot_gt: /opt/data/private/BasicSR/datasets/urban100/HR
-    dataroot_lq: /opt/data/private/BasicSR/datasets/urban100/LR_bicubic/X4
+    dataroot_gt: ../BasicSR/datasets/urban100/HR
+    dataroot_lq: ../BasicSR/datasets/urban100/LR_bicubic/X4
     io_backend:
       type: disk
 
 # network structures
 network_g:
-  type: vapsr_beta
+  type: vapsr
   num_in_ch: 3
   num_feat: 48
   d_atten: 64

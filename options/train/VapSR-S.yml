@@ -37,7 +37,7 @@ datasets:
 
 # network structures
 network_g:
-  type: vapsr_beta
+  type: vapsr
   num_in_ch: 3
   num_feat: 32
   d_atten: 64

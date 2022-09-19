@@ -7,7 +7,7 @@ from basicsr.models import build_model
 from basicsr.utils import get_env_info, get_root_logger, get_time_str, make_exp_dirs
 from basicsr.utils.options import dict2str, parse_options
 
-from vapsr_beta import vapsr_beta
+from vapsr import vapsr
 
 def test_pipeline(root_path):
     # parse options, set distributed setting, set ramdom seed

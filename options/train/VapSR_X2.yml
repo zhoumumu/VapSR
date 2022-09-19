@@ -1,5 +1,5 @@
 # general settings
-name: VapSR_betaX2
+name: VapSR_X2
 model_type: SRModel
 scale: 2
 num_gpu: 2
@@ -10,8 +10,8 @@ datasets:
   train:
     name: DF2K
     type: PairedImageDataset
-    dataroot_gt: ../SR_datasets/DF2K/DF2K_HR_sub.lmdb
-    dataroot_lq: ../SR_datasets/DF2K/DF2K_train_LR_bicubic_X2_sub.lmdb
+    dataroot_gt: ../BasicSR/datasets/DF2K/DF2K_train_HR_sub.lmdb
+    dataroot_lq: ../BasicSR/datasets/DF2K/DF2K_train_LR_bicubic_X2_sub.lmdb
     io_backend:
       type: lmdb
 
@@ -29,15 +29,15 @@ datasets:
   val:
     name: DIV2K_val
     type: PairedImageDataset
-    dataroot_gt: ../SR_datasets/DIV2K/DIV2K_valid_HR/
-    dataroot_lq: ../SR_datasets/DIV2K/DIV2K_valid_LR_bicubic/X2/
+    dataroot_gt: ../BasicSR/datasets/DIV2K/DIV2K_valid_HR/
+    dataroot_lq: ../BasicSR/datasets/DIV2K/DIV2K_valid_LR_bicubic/X2/
     io_backend:
       type: disk
 
 
 # network structures
 network_g:
-  type: vapsr_beta
+  type: vapsr
   num_in_ch: 3
   num_feat: 48
   d_atten: 64
@@ -62,7 +62,7 @@ train:
 
   scheduler:
     type: MultiStepLR
-    milestones: [70000, 1000000]
+    milestones: [60000, 1000000] # reconstruction of X2 scale is prone to crash with large learning rate, need to turn down the learning rate before crash.
     gamma: 0.7
 
   total_iter: 1000000
