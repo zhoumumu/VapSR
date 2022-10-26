@@ -5,6 +5,8 @@ Lin Zhou1∗, [Haoming Cai1∗](www.haomingcai.com), [Jinjin Gu](https://www.jas
 
 >The attention mechanism plays a pivotal role in designing advanced super-resolution (SR) networks. In this work, we design an efficient SR network by improving the attention mechanism. We start from a simple pixel attention module and gradually modify it to achieve better super-resolution performance with reduced parameters. The specific approaches include: (1) increasing the receptive field of the attention branch, (2) replacing large dense convolution kernels with depthwise separable convolutions, and (3) introducing pixel normalization. These approaches paint a clear evolutionary roadmap for the design of attention mechanisms. Based on these observations, we propose VapSR, the Vast-receptive-field Pixel attention network. Experiments demonstrate the superior performance of VapSR. VapSR outperforms the present lightweight networks with even fewer parameters. And the light version of VapSR can use only 21.68% and 28.18% parameters of IMDB and RFDN to achieve similar performances to those networks.
 
+Quick Intro: [the presentation and the poster](https://drive.google.com/drive/folders/1nRvdlu6AmBwgVCOxw21s1m7nQm7l3ZqU?usp=sharing).
+
 <!-- ![](https://raw.githubusercontent.com/zhoumumu/VapSR/main/network.jpg) -->
 ![network.jpg](./network.jpg)
 
