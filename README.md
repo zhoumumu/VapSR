@@ -1,7 +1,7 @@
 #  VapSR
 Efficient Image Super-Resolution using Vast-Receptive-Field Attention(ECCVW 2022). [Paper link](https://arxiv.org/abs/2210.05960)
 
-Lin Zhou1∗, [Haoming Cai1∗](www.haomingcai.com), [Jinjin Gu](https://www.jasongt.com/), [Zheyuan Li](https://xiaom233.github.io/), Yingqi Liu, [Xiangyu Chen](https://chxy95.github.io/), [Yu Qiao](http://mmlab.siat.ac.cn/yuqiao/), [Chao Dong](https://scholar.google.com.hk/citations?user=OSDCB0UAAAAJ&hl=en) (* indicates equal contribution)
+Lin Zhou1∗, [Haoming Cai1∗](https://www.haomingcai.com), [Jinjin Gu](https://www.jasongt.com/), [Zheyuan Li](https://xiaom233.github.io/), Yingqi Liu, [Xiangyu Chen](https://chxy95.github.io/), [Yu Qiao](http://mmlab.siat.ac.cn/yuqiao/), [Chao Dong](https://scholar.google.com.hk/citations?user=OSDCB0UAAAAJ&hl=en) (* indicates equal contribution)
 
 >The attention mechanism plays a pivotal role in designing advanced super-resolution (SR) networks. In this work, we design an efficient SR network by improving the attention mechanism. We start from a simple pixel attention module and gradually modify it to achieve better super-resolution performance with reduced parameters. The specific approaches include: (1) increasing the receptive field of the attention branch, (2) replacing large dense convolution kernels with depthwise separable convolutions, and (3) introducing pixel normalization. These approaches paint a clear evolutionary roadmap for the design of attention mechanisms. Based on these observations, we propose VapSR, the Vast-receptive-field Pixel attention network. Experiments demonstrate the superior performance of VapSR. VapSR outperforms the present lightweight networks with even fewer parameters. And the light version of VapSR can use only 21.68% and 28.18% parameters of IMDB and RFDN to achieve similar performances to those networks.
 
@@ -32,7 +32,7 @@ from vapsr import vapsr
 
 
 ## Testing
-The provided pth files contain two models each, one is the EMA model and the other is the in-training-progress model with larger parameters. Our testing results are produced by the EMA models.
+<!-- The provided pth files contain two models each, one is the EMA model and the other is the in-training-progress model with larger parameters. Our testing results are produced by the EMA models.
 
 To load them, you can either remove the other model in the file and rename the key of the EMA model from 'params_ema' to 'params'. You need to make the process for every model you test.
 
@@ -44,7 +44,7 @@ to
 ```
 param_key = self.opt['path'].get('param_key_g', 'params_ema')
 ```
-Note this will change the behavior of the consuming training (load and train). Make sure you know which model you need and which model you loaded.
+Note this will change the behavior of the consuming training (load and train). Make sure you know which model you need and which model you loaded. -->
 
 You can run the testing demo with
 ```
@@ -58,3 +58,14 @@ Reproduce with
 >>> CUDA_VISIBLE_DEVICES=0,1 python -m torch.distributed.launch --nproc_per_node=2 --master_port=4321 code/train.py -opt options/train/VapSR_X4.yml --launcher pytorch
 ```
 <!--VapSR_X4 and VapSR_X2 reproduced, even slightly better.-->
+
+## Contact
+Feel free to contact us:
+Lin Zhou[📫](zhougrace885@gmail.com) 
+Haoming Cai[📫](hmcai@umd.edu) 
+Jinjin Gu[📫](jinjin.gu@sydney.edu.au) 
+Zheyuan Li[📫](zy.li3@siat.ac.cn) 
+Yingqi Liu[📫](yq.liu3@siat.ac.cn) 
+Xiangyu Chen[📫](chxy95@gmail.com) 
+Yu Qiao[📫](yu.qiao@siat.ac.cn) 
+Chao Dong[📫](chao.dong@siat.ac.cn) 

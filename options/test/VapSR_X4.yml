@@ -51,6 +51,7 @@ path:
   pretrain_network_g: VapSR_X4.pth
   strict_load_g: true
   resume_state: ~
+  param_key_g: 'params_ema'
 
 # validation settings
 val:
